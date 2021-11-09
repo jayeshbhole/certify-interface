@@ -1,6 +1,7 @@
 // Imports
 import Web3ContextProvider from "./context/Web3Context";
 import { Routes, Route, Navigate } from "react-router";
+
 // Components
 import Navbar from "./components/Navbar";
 import Verify from "./components/Verify";
@@ -31,7 +32,7 @@ const App = () => {
 			</main>
 
 			<footer>
-				<div>BUILT with &lt;3</div>
+				<div>Certify - BUILT with &lt;3</div>
 			</footer>
 		</Web3ContextProvider>
 	);

@@ -26,7 +26,7 @@ const Navbar = () => {
 				</div>
 				<span className="item" id="wallet" onClick={loadWeb3Modal}>
 					{signedInAddress
-						? `${signedInAddress.slice(0, 5)}...${signedInAddress.slice(-5)}`
+						? `Connected ${signedInAddress.slice(0, 5)}`
 						: "Connect Wallet"}
 				</span>
 			</div>
