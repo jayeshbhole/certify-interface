@@ -36,7 +36,6 @@ const Web3ContextProvider = (props) => {
 			network: network,
 			cacheProvider: false,
 			providerOptions: providerOptions,
-			theme: "dark",
 		});
 	}, [network]);
 

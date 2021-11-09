@@ -1,9 +1,9 @@
 // Imports
-// import { Suspense, lazy } from "react";
 import Web3ContextProvider from "./context/Web3Context";
 
 // Components
-import UI from "./components/UI";
+
+import Navbar from "./components/Navbar";
 
 // Styles
 import "./styles/App.scss";
@@ -11,9 +11,9 @@ import "./styles/App.scss";
 const App = () => {
 	return (
 		<Web3ContextProvider>
-			<main>
-				<UI />
-			</main>
+			<Navbar />
+			<main>Hello</main>
+			<footer></footer>
 		</Web3ContextProvider>
 	);
 };
