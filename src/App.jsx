@@ -13,7 +13,9 @@ const App = () => {
 		<Web3ContextProvider>
 			<Navbar />
 			<main>Hello</main>
-			<footer></footer>
+			<footer>
+				<div>BUILT with &lt;3</div>
+			</footer>
 		</Web3ContextProvider>
 	);
 };
