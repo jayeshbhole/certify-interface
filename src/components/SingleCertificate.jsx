@@ -20,7 +20,7 @@ const SingleCertificate = () => {
 
 	const { contract, accountAddress } = useContext(Web3Context);
 
-	const [modalData, setModalData] = useState({ mode: "loading" });
+	const [modalData, setModalData] = useState({ mode: "display" });
 
 	const onSubmit = async (data) => {
 		if (accountAddress) {

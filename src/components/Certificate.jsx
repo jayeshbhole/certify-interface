@@ -1,8 +1,14 @@
 import QRCode from "react-qr-code";
 import Verified from "../assets/verified.svg";
 import "../styles/view.scss";
+import { retrieve } from "../utils/crypt";
 
-const Certificate = ({ data }) => {
+const Certificate = ({ ipfsHash, key }) => {
+	let ipfsData;
+	(async () => {
+		ipfsData = await retrieve(ipfsHash, key);
+	})();
+	const data = { ipfsData };
 	return (
 		<div className="certificate">
 			<h1>Ӂ Certificate Ӂ</h1>
@@ -64,7 +70,7 @@ const Certificate = ({ data }) => {
 				<div>
 					<h4>Certificate Status</h4>
 					<div className="status">
-						<img src={Verified} alt="" srcset="" />
+						<img src={Verified} alt="" />
 
 						<div className="label">Verified</div>
 					</div>

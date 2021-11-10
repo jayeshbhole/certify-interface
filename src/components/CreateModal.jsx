@@ -4,31 +4,28 @@ import Loader from "../assets/loading.svg";
 
 const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
 	const modalRef = useRef();
-	const [toggle, setToggle] = useState(mode);
 
 	const handleClickOutside = useCallback(
 		(e) => {
-			console.log("clack");
-			if (toggle && mode === "display") {
+			if (mode === "display") {
 				console.log("click");
-				if (!modalRef.current.contains(e.target)) {
-					setToggle(false);
+				if (!modalRef.current?.contains(e.target)) {
 					setModalData({ mode: "closed" });
 				}
 			} else {
-				console.log("click");
 			}
 		},
-		[toggle]
+		[mode]
 	);
-
-	console.log(handleClickOutside);
 
 	useEffect(() => {
 		document.addEventListener("click", handleClickOutside);
-	}, []);
+		return () => {
+			document.removeEventListener("click", handleClickOutside);
+		};
+	}, [mode]);
 
-	return toggle === "closed" ? (
+	return mode === "display" ? (
 		<div className="modal">
 			<div className="content inner" ref={modalRef}>
 				<div className="success">
@@ -37,12 +34,13 @@ const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
 				<Certificate data />
 			</div>
 		</div>
-	) : toggle === "loading" ? (
+	) : mode === "loading" ? (
 		<Loading modalRef={modalRef} />
 	) : (
 		<></>
 	);
 };
+
 const Loading = () => {
 	useEffect(() => {
 		window.onbeforeunload = confirmExit;
@@ -60,4 +58,5 @@ const Loading = () => {
 		</div>
 	);
 };
+
 export default Modal;
