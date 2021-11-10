@@ -1,14 +1,27 @@
+import { useContext, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import Verified from "../assets/verified.svg";
+import { Web3Context } from "../context/Web3Context";
 import "../styles/view.scss";
 import { retrieve } from "../utils/crypt";
 
-const Certificate = ({ ipfsHash, key }) => {
-	let ipfsData;
-	(async () => {
-		ipfsData = await retrieve(ipfsHash, key);
-	})();
-	const data = { ipfsData };
+const Certificate = ({ ipfsHash, certkey }) => {
+	const [data, setData] = useState({});
+	const { contract } = useContext(Web3Context);
+
+	useEffect(() => {
+		let ipfsData, certData;
+		(async () => {
+			console.log("here", certkey, ipfsHash);
+			if (!!ipfsHash & !!certkey) {
+				certData = await contract.methods.verify(ipfsHash).call();
+				// ipfsData = await retrieve(ipfsHash, certkey);
+				setData({ ...ipfsData, certData });
+				console.log(data, ipfsData, certData);
+			}
+		})();
+	}, []);
+
 	return (
 		<div className="certificate">
 			<h1>Ӂ Certificate Ӂ</h1>
@@ -34,7 +47,7 @@ const Certificate = ({ ipfsHash, key }) => {
 						<div className="col">
 							<span className="field">
 								<span className="label">Expires on : </span>
-								<span>{data?.ExpirationDate}</span>
+								<span>{data?.validtill}</span>
 							</span>
 
 							<span className="field">
@@ -56,12 +69,12 @@ const Certificate = ({ ipfsHash, key }) => {
 
 							<span className="field">
 								<span className="label">Created On : </span>
-								<span>{data?.createdOn}</span> <br />
+								<span>{data?.issuetime}</span> <br />
 							</span>
 
 							<span className="field">
 								<span className="label">IPFS Hash : </span>
-								<span>{data?.ipfsHash}</span>
+								<span>{ipfsHash}</span>
 							</span>
 						</div>
 					</div>
@@ -80,7 +93,7 @@ const Certificate = ({ ipfsHash, key }) => {
 					<h4>Scan to share</h4>
 					<div className="share">
 						<QRCode
-							value={window.location.href}
+							value={`https://localhost:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`}
 							size={100}
 							bgColor="#fdfaf7"
 							fgColor="#4c4c4c"
