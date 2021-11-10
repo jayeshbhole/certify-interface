@@ -61,5 +61,16 @@
 				box-shadow: 0px 0px 0px #ff6363;
 			}
 		}
+
+		.code {
+			pre {
+				margin-top: 1rem;
+				background: #4b3f3f15;
+				border-radius: 5px;
+				padding: 1rem;
+				font-size: 0.8rem;
+				word-wrap: break-word;
+			}
+		}
 	}
 }

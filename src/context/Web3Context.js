@@ -26,7 +26,7 @@ const providerOptions = {
 };
 
 const Web3ContextProvider = (props) => {
-	const [network, setNetwork] = useState("ropsten");
+	const [network, setNetwork] = useState("mainnet");
 	const [provider, setProvider] = useState();
 	const [signedInAddress, setSignedInAddress] = useState("");
 

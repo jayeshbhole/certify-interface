@@ -1,27 +1,46 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import "../styles/create.scss";
 
 const Create = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
+		control,
 		formState: { errors },
 	} = useForm();
+
 	const onSubmit = (data) => {
 		console.log(data);
 		console.log(errors);
 	};
+
 	const con = {
 		required: { value: true, message: "This field is Required" },
 		minLength: { value: 3, message: "At least 3 characters required" },
 	};
-	console.log(errors);
+
 	return (
 		<div className="create">
 			<div className="single">
-				<SingleInfo />
+				<div className="txt">
+					<h2>Issue Certificates</h2>
+					<div className="inner">
+						<span>
+							Issue certificates with the form manually or import CSV files.
+							Fill out the adjacent form and create a new certificate.
+						</span>
+						<span>
+							Pay minimal transaction fee and get a copy of the certificate
+							Hash.
+						</span>
+						<span>
+							Refer to the CSV file format below before importing data.
+						</span>
+					</div>
+					<hr />
+					<Code control={control} />
+				</div>
 
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Input
@@ -64,8 +83,7 @@ const Create = () => {
 							name="AdditionalNotes"
 							label="Additional Notes"
 							type="textarea"
-							conditions={{ min: 3 }}
-							register={register}
+							{...register("AdditionalNotes", { min: 3 })}
 							errors={errors}
 						/>
 					</div>
@@ -77,27 +95,14 @@ const Create = () => {
 	);
 };
 
-const SingleInfo = () => {
+const Code = ({ control }) => {
+	const watchedAllFields = useWatch({ control });
 	return (
-		<div className="txt">
-			<h2>Issue Certificates</h2>
-			<div className="inner">
-				<span>
-					Issue certificates with the form manually or import CSV files. Fill
-					out the adjacent form and create a new certificate.
-				</span>
-				<span>
-					Pay minimal transaction fee and get a copy of the certificate Hash.
-				</span>
-				<span>Refer to the CSV file format below before importing data.</span>
-			</div>
-			<Code />
+		<div className="code">
+			Certificate JSON
+			<pre>{JSON.stringify(watchedAllFields, null, 2)}</pre>
 		</div>
 	);
-};
-
-const Code = () => {
-	return <div className="code"></div>;
 };
 
 const Input = ({ name, label, type, register, conditions, errors, value }) => (
