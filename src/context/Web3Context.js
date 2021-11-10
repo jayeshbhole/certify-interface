@@ -7,13 +7,22 @@ import {
 } from "react";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
+import Web3 from "web3";
+import abi from "../utils/contractABI";
+
+const _web3 = new Web3();
+const _contract = new _web3.eth.Contract(
+	abi.abi,
+	"0x2b76a4fa993f30004b4e92cab6256f98d0612ae5"
+);
 
 const Web3Context = createContext({
 	balance: null,
 	error: null,
 	loadWeb3Modal: () => {},
 	logoutOfWeb3Modal: () => {},
-	signedInAddress: "",
+	accountAddress: "",
+	contract: _contract,
 });
 
 const providerOptions = {
@@ -39,6 +48,15 @@ const Web3ContextProvider = (props) => {
 		});
 	}, [network]);
 
+	const { web3, contract } = useMemo(() => {
+		const _web3 = new Web3(provider);
+		const contract = new _web3.eth.Contract(
+			abi.abi,
+			"0x2b76a4fa993f30004b4e92cab6256f98d0612ae5"
+		);
+		return { _web3, contract };
+	}, [provider]);
+
 	// Modal Controls - Connect and Disconnect Wallets
 	const loadWeb3Modal = useCallback(async () => {
 		const newProvider = await web3Modal.connect();
@@ -52,6 +70,7 @@ const Web3ContextProvider = (props) => {
 	}, [web3Modal]);
 
 	useEffect(() => {
+		console.log(provider);
 		if (provider) {
 			// Subscribe to accounts change
 			provider.on("accountsChanged", (accounts) => {
@@ -74,7 +93,14 @@ const Web3ContextProvider = (props) => {
 
 	return (
 		<Web3Context.Provider
-			value={{ loadWeb3Modal, logoutOfWeb3Modal, signedInAddress, setNetwork }}>
+			value={{
+				loadWeb3Modal,
+				logoutOfWeb3Modal,
+				accountAddress: signedInAddress,
+				setNetwork,
+				contract,
+				web3,
+			}}>
 			{props.children}
 		</Web3Context.Provider>
 	);
