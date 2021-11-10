@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { upload } from "../utils/crypt";
+import Certificate from "./Certificate";
 
 const con = {
 	required: { value: true, message: "This field is Required" },
@@ -13,13 +16,17 @@ const SingleCertificate = () => {
 		formState: { errors },
 	} = useForm();
 
+	const [modal, setModal] = useState();
+
 	const onSubmit = (data) => {
 		console.log(data);
-		console.log(errors);
+		const res = upload(data);
+		setModal({ mode: "single", ...res });
 	};
 
 	return (
 		<div className="single">
+			{modal ? <Preview /> : null}
 			<div className="txt">
 				<h2>Issue Certificates</h2>
 				<div className="inner">
@@ -35,7 +42,6 @@ const SingleCertificate = () => {
 				<hr />
 				<Code control={control} />
 			</div>
-
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					name="BeneficiaryName"
@@ -83,6 +89,14 @@ const SingleCertificate = () => {
 				</div>
 				<input type="submit" value="Issue Certificate" />
 			</form>
+		</div>
+	);
+};
+
+const Preview = () => {
+	return (
+		<div className="preview">
+			<Certificate data />
 		</div>
 	);
 };
