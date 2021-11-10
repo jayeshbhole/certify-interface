@@ -20,14 +20,16 @@ const SingleCertificate = () => {
 
 	const { contract, accountAddress } = useContext(Web3Context);
 
-	const [modalData, setModalData] = useState({ mode: "display" });
+	const [modalData, setModalData] = useState({ mode: "closed" });
 
 	const onSubmit = async (data) => {
 		if (accountAddress) {
 			setModalData({ mode: "loading" });
 			const { ipfsHash, certkey } = await upload(data);
-			const expDate = new Date(getValues("ExpirationDate")).getTime();
-
+			const expDate = getValues("ExpirationDate")
+				? new Date(getValues("ExpirationDate")).getTime()
+				: 0;
+			console.log(expDate);
 			await contract.methods
 				.generateCert(ipfsHash.toString(), expDate, ipfsHash.toString())
 				.send({ from: accountAddress })
@@ -44,9 +46,13 @@ const SingleCertificate = () => {
 					});
 				})
 
-				.on("error", function (error, receipt) {
+				.on("error", function (error) {
 					console.log(error);
+					window.alert(error.message);
+					setModalData("closed");
 				});
+		} else {
+			window.alert("Please Connect an Ethereum Wallet First");
 		}
 	};
 
@@ -89,10 +95,8 @@ const SingleCertificate = () => {
 					name="ExpirationDate"
 					label="Expiration Date"
 					type="date"
-					conditions={{ required: true }}
 					register={register}
 					errors={errors}
-					value={"1970-01-01"}
 				/>
 				<Input
 					name="InstituteAuthorityName"

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import Certificate from "./Certificate";
 import Loader from "../assets/loading.svg";
 
-const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
+const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 	const modalRef = useRef();
 
 	const handleClickOutside = useCallback(
@@ -32,9 +32,13 @@ const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
 			<div className="content inner" ref={modalRef}>
 				<div className="success">
 					<h3>
-						Success! Certificate Created with encryption key : {data?.certkey}
+						Success! Certificate Created with encryption key : {data?.certkey}{" "}
+						<br />
+						<button>Download a Receipt</button>
 					</h3>
-					Download receipt : <button>Download</button>
+					<br />
+					<hr />
+					<br />
 				</div>
 				<Certificate ipfsHash={data?.ipfsHash} certkey={data?.certkey} />
 			</div>

@@ -11,6 +11,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 
 	useEffect(() => {
 		let ipfsData, certData;
+
 		(async () => {
 			if (!!ipfsHash & !!certkey) {
 				await contract.methods
@@ -102,7 +103,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 					<h4>Scan to share</h4>
 					<div className="share">
 						<QRCode
-							value={`https://localhost:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`}
+							value={`http://192.168.1.6:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`}
 							size={100}
 							bgColor="#fdfaf7"
 							fgColor="#4c4c4c"
