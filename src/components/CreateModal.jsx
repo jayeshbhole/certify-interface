@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Certificate from "./Certificate";
 import Loader from "../assets/loading.svg";
 
@@ -15,6 +15,7 @@ const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
 			} else {
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[mode]
 	);
 
@@ -23,15 +24,19 @@ const Modal = ({ modalData: { mode, data, error }, setModalData }) => {
 		return () => {
 			document.removeEventListener("click", handleClickOutside);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mode]);
 
 	return mode === "display" ? (
 		<div className="modal">
 			<div className="content inner" ref={modalRef}>
 				<div className="success">
-					<h3>Success! Certificate Created with key : {data?.CertKey}</h3>
+					<h3>
+						Success! Certificate Created with encryption key : {data?.certkey}
+					</h3>
+					Download receipt : <button>Download</button>
 				</div>
-				<Certificate data />
+				<Certificate ipfsHash={data?.ipfsHash} certkey={data?.certkey} />
 			</div>
 		</div>
 	) : mode === "loading" ? (
