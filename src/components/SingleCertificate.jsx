@@ -31,13 +31,19 @@ const SingleCertificate = () => {
 			await contract.methods
 				.generateCert(ipfsHash.toString(), expDate, ipfsHash.toString())
 				.send({ from: accountAddress })
-				.on("confirmation", function (confirmationNumber, receipt) {
-					console.log(confirmationNumber, receipt);
+
+				.on("transactionHash", function (hash) {
+					console.log(hash);
+				})
+
+				.on("receipt", function (receipt) {
+					console.log(receipt);
 					setModalData({
 						mode: "display",
 						data: { ipfsHash, certkey, receipt },
 					});
 				})
+
 				.on("error", function (error, receipt) {
 					console.log(error);
 				});
