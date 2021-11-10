@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Web3Context } from "../context/Web3Context";
 
 const Navbar = () => {
-	const { loadWeb3Modal, signedInAddress } = useContext(Web3Context);
+	const { loadWeb3Modal, accountAddress } = useContext(Web3Context);
 	return (
 		<nav>
 			<div className="bar">
@@ -25,8 +25,8 @@ const Navbar = () => {
 					</NavLink>
 				</div>
 				<span className="item" id="wallet" onClick={loadWeb3Modal}>
-					{signedInAddress
-						? `Connected ${signedInAddress.slice(0, 5)}`
+					{accountAddress
+						? `Connected ${accountAddress.slice(0, 5)}`
 						: "Connect Wallet"}
 				</span>
 			</div>

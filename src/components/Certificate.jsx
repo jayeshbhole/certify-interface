@@ -9,15 +9,15 @@ const Certificate = ({ data }) => {
 			<br />
 
 			<div className="fields">
-				<span className="txt">
+				<span>
 					This certificate is presented to{" "}
 					<span className="field" id="name">
 						{data?.BeneficiaryName}
 					</span>{" "}
 				</span>
-				<span className="txt">For</span>
+				<span>For</span>
 				<span className="field">{data?.CertificateDescription}</span>
-				<span className="txt">By</span>
+				<span>By</span>
 				<span className="field">{data?.InstituteAuthorityName}</span>
 			</div>
 
