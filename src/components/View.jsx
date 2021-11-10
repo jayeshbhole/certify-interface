@@ -1,9 +1,15 @@
+import { useSearchParams } from "react-router-dom";
 import Certificate from "./Certificate";
 
-const View = ({ data }) => {
+const View = () => {
+	const [searchParams] = useSearchParams();
+
 	return (
 		<div className="view">
-			<Certificate />
+			<Certificate
+				certkey={searchParams.get("certkey")}
+				ipfsHash={searchParams.get("ipfsHash")}
+			/>
 		</div>
 	);
 };

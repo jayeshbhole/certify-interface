@@ -21,9 +21,9 @@ const App = () => {
 			<main>
 				<Routes>
 					<Route path="/">
-						<Route exact path="verify" element={<Verify />} />
+						{/* <Route exact path="verify" element={<Verify />} /> */}
 						<Route exact path="create" element={<Create />} />
-						<Route exact path="view" element={<View />} />
+						<Route path="verify" element={<View />} />
 						<Route exact path="" element={<Home />} />
 						<Route exact path="404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="/404" />} />
