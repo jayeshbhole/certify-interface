@@ -10,19 +10,13 @@ import Portis from "@portis/web3";
 import Web3 from "web3";
 import abi from "../utils/contractABI";
 
-const _web3 = new Web3();
-const _contract = new _web3.eth.Contract(
-	abi.abi,
-	"0x2b76a4fa993f30004b4e92cab6256f98d0612ae5"
-);
-
 const Web3Context = createContext({
 	balance: null,
 	error: null,
 	loadWeb3Modal: () => {},
 	logoutOfWeb3Modal: () => {},
 	accountAddress: "",
-	contract: _contract,
+	contract: null,
 });
 
 const providerOptions = {
@@ -40,7 +34,6 @@ const Web3ContextProvider = (props) => {
 	const [signedInAddress, setSignedInAddress] = useState("");
 
 	const web3Modal = useMemo(() => {
-		console.log(network);
 		return new Web3Modal({
 			network: network,
 			cacheProvider: false,
@@ -49,12 +42,15 @@ const Web3ContextProvider = (props) => {
 	}, [network]);
 
 	const { web3, contract } = useMemo(() => {
-		const _web3 = new Web3(provider);
-		const contract = new _web3.eth.Contract(
+		const web3 = new Web3(
+			provider ||
+				"https://eth-ropsten.alchemyapi.io/v2/hmcLykc82lV3Hv9KwZoMjYwETfo7DwNM"
+		);
+		const contract = new web3.eth.Contract(
 			abi.abi,
 			"0x2b76a4fa993f30004b4e92cab6256f98d0612ae5"
 		);
-		return { _web3, contract };
+		return { web3, contract };
 	}, [provider]);
 
 	// Modal Controls - Connect and Disconnect Wallets
