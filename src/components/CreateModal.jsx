@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import Certificate from "./Certificate";
 import Loader from "../assets/loading.svg";
+import { saveAs } from "file-saver";
 
 const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 	const modalRef = useRef();
@@ -27,6 +28,19 @@ const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mode]);
 
+	const createReceipt = () => {
+		const obj = {
+			transactionHash: receipt?.transactionHash,
+			ipfsHash: data?.ipfsHash,
+			certkey: data?.certkey,
+			shareableLink: `http://192.168.1.6:3000/verify/?ipfsHash=${data?.ipfsHash}&certkey=${data?.certkey}`,
+		};
+		const blob = new Blob([JSON.stringify(obj, null, "\t")], {
+			type: "application/json",
+		});
+		saveAs(blob, `certify-${data?.ipfsHash}`);
+	};
+
 	return mode === "display" ? (
 		<div className="modal">
 			<div className="content inner" ref={modalRef}>
@@ -34,7 +48,7 @@ const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 					<h3>
 						Success! Certificate Created with encryption key : {data?.certkey}{" "}
 						<br />
-						<button>Download a Receipt</button>
+						<button onClick={createReceipt}>Download a Receipt</button>
 					</h3>
 					<br />
 					<hr />

@@ -27,6 +27,8 @@ const Certificate = ({ ipfsHash, certkey }) => {
 		})();
 	}, []);
 
+	const link = `http://192.168.1.6:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
+
 	return (
 		<div className="certificate">
 			<h1>Ӂ Certificate Ӂ</h1>
@@ -103,7 +105,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 					<h4>Scan to share</h4>
 					<div className="share">
 						<QRCode
-							value={`http://192.168.1.6:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`}
+							value={link}
 							size={100}
 							bgColor="#fdfaf7"
 							fgColor="#4c4c4c"
@@ -111,6 +113,11 @@ const Certificate = ({ ipfsHash, certkey }) => {
 					</div>
 				</div>
 			</div>
+			<br />
+			<hr width="50%" />
+			<a className="foot-link" href={link}>
+				{link}
+			</a>
 		</div>
 	);
 };

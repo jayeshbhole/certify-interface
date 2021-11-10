@@ -39,10 +39,10 @@ const SingleCertificate = () => {
 				})
 
 				.on("receipt", function (receipt) {
-					console.log(receipt);
 					setModalData({
 						mode: "display",
-						data: { ipfsHash, certkey, receipt },
+						data: { ipfsHash, certkey },
+						receipt: receipt,
 					});
 				})
 
