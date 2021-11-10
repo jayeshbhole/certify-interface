@@ -12,12 +12,16 @@ const Certificate = ({ ipfsHash, certkey }) => {
 	useEffect(() => {
 		let ipfsData, certData;
 		(async () => {
-			console.log("here", certkey, ipfsHash);
 			if (!!ipfsHash & !!certkey) {
-				certData = await contract.methods.verify(ipfsHash).call();
-				// ipfsData = await retrieve(ipfsHash, certkey);
-				setData({ ...ipfsData, certData });
-				console.log(data, ipfsData, certData);
+				await contract.methods
+					.verify(ipfsHash)
+					.call()
+					.then((res) => {
+						certData = res;
+					})
+					.catch((error) => console.log(error));
+				ipfsData = JSON.parse(await retrieve(ipfsHash, certkey));
+				setData({ ...ipfsData, ...certData });
 			}
 		})();
 	}, []);
@@ -47,7 +51,9 @@ const Certificate = ({ ipfsHash, certkey }) => {
 						<div className="col">
 							<span className="field">
 								<span className="label">Expires on : </span>
-								<span>{data?.validtill}</span>
+								<span>
+									{new Date(Number(data?.validtill)).toLocaleDateString()}
+								</span>
 							</span>
 
 							<span className="field">
@@ -69,7 +75,10 @@ const Certificate = ({ ipfsHash, certkey }) => {
 
 							<span className="field">
 								<span className="label">Created On : </span>
-								<span>{data?.issuetime}</span> <br />
+								<span>
+									{new Date(Number(data?.issuetime)).toLocaleDateString()}
+								</span>{" "}
+								<br />
 							</span>
 
 							<span className="field">
