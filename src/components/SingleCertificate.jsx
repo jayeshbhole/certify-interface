@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { Web3Context } from "../context/Web3Context";
 import { upload } from "../utils/crypt";
-import Certificate from "./Certificate";
+import Modal from "./CreateModal";
 
 const con = {
 	required: { value: true, message: "This field is Required" },
@@ -14,19 +15,38 @@ const SingleCertificate = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
+		getValues,
 	} = useForm();
 
-	const [modal, setModal] = useState();
+	const { contract, accountAddress } = useContext(Web3Context);
 
-	const onSubmit = (data) => {
-		console.log(data);
-		const res = upload(data);
-		setModal({ mode: "single", ...res });
+	const [modalData, setModalData] = useState({ mode: "loading" });
+
+	const onSubmit = async (data) => {
+		if (accountAddress) {
+			setModalData({ mode: "loading" });
+			const { ipfsHash, certkey } = await upload(data);
+			const expDate = new Date(getValues("ExpirationDate")).getTime();
+
+			await contract.methods
+				.generateCert(ipfsHash.toString(), expDate, ipfsHash.toString())
+				.send({ from: accountAddress })
+				.on("confirmation", function (confirmationNumber, receipt) {
+					console.log(confirmationNumber, receipt);
+					setModalData({
+						mode: "display",
+						data: { ipfsHash, certkey, receipt },
+					});
+				})
+				.on("error", function (error, receipt) {
+					console.log(error);
+				});
+		}
 	};
 
 	return (
 		<div className="single">
-			{modal ? <Preview /> : null}
+			<Modal modalData={modalData} setModalData={setModalData} />
 			<div className="txt">
 				<h2>Issue Certificates</h2>
 				<div className="inner">
@@ -93,14 +113,6 @@ const SingleCertificate = () => {
 	);
 };
 
-const Preview = () => {
-	return (
-		<div className="preview">
-			<Certificate data />
-		</div>
-	);
-};
-
 const Code = ({ control }) => {
 	const watchedAllFields = useWatch({ control });
 	return (
@@ -125,4 +137,5 @@ const Input = ({ name, label, type, register, conditions, errors, value }) => (
 		/>
 	</div>
 );
+
 export default SingleCertificate;
