@@ -1,0 +1,6 @@
+{
+	"transactionHash": "0x447f5969d94afe1052dcb5ee97fadfb042313d9fa5423db197183cf9e696efde",
+	"ipfsHash": "bafkreihbrnbg4imdrpmo5zi2o66fhyvdwkmm7ebuszvvolrbaoej4myxuu",
+	"certkey": "3QE14I4WX",
+	"shareableLink": "http://192.168.1.6:3000/verify/?ipfsHash=bafkreihbrnbg4imdrpmo5zi2o66fhyvdwkmm7ebuszvvolrbaoej4myxuu&certkey=3QE14I4WX"
+}
