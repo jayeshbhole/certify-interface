@@ -1,7 +1,10 @@
-import { useCallback, useEffect, useRef } from "react";
-import Certificate from "./Certificate";
+import { lazy, Suspense, useCallback, useEffect, useRef } from "react";
+
 import Loader from "../assets/loading.svg";
 import { saveAs } from "file-saver";
+import PageLoader from "./PageLoader";
+
+const Certificate = lazy(() => import("./Certificate"));
 
 const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 	const modalRef = useRef();
@@ -43,18 +46,22 @@ const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 
 	return mode === "display" ? (
 		<div className="modal">
-			<div className="content inner" ref={modalRef}>
-				<div className="success">
-					<h3>
-						Success! Certificate Created with encryption key : {data?.certkey}{" "}
+			<div className="inner" ref={modalRef}>
+				<div className="content">
+					<div className="success">
+						<h3>
+							Success! Certificate Created with encryption key : {data?.certkey}{" "}
+							<br />
+							<button onClick={createReceipt}>Download a Receipt</button>
+						</h3>
 						<br />
-						<button onClick={createReceipt}>Download a Receipt</button>
-					</h3>
-					<br />
-					<hr />
-					<br />
+						<hr />
+						<br />
+					</div>
+					<Suspense fallback={<PageLoader />}>
+						<Certificate ipfsHash={data?.ipfsHash} certkey={data?.certkey} />
+					</Suspense>
 				</div>
-				<Certificate ipfsHash={data?.ipfsHash} certkey={data?.certkey} />
 			</div>
 		</div>
 	) : mode === "loading" ? (

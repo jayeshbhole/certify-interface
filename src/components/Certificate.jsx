@@ -25,6 +25,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 				setData({ ...ipfsData, ...certData });
 			}
 		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const link = `http://192.168.1.6:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
