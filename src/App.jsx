@@ -7,7 +7,6 @@ import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import PageLoader from "./components/PageLoader";
-import Actions from "./components/Actions";
 
 // Styles
 import "./styles/App.scss";
@@ -15,6 +14,7 @@ import "./styles/App.scss";
 const Verify = lazy(() => import("./components/Verify"));
 const Create = lazy(() => import("./components/Create"));
 const Home = lazy(() => import("./components/Home"));
+const Actions = lazy(() => import("./components/Actions"));
 
 const App = () => {
 	return (
