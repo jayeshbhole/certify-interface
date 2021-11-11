@@ -24,6 +24,7 @@ const providerOptions = {
 		package: Portis, // required
 		options: {
 			id: "1c106e72-6610-4945-856e-1f0c3d5bc67a", // required
+			network: "ropsten",
 		},
 	},
 };
