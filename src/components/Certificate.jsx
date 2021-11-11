@@ -86,7 +86,7 @@ const Info = ({ resource, link }) => {
 						<span className="field">
 							<span className="label">Created On : </span>
 							<span>
-								{new Date(Number(data?.issuetime)).toLocaleDateString()}
+								{new Date(Number(data?.issuetime) * 1000).toLocaleDateString()}
 							</span>{" "}
 							<br />
 						</span>
