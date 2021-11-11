@@ -68,6 +68,7 @@ const Info = ({ resource, link }) => {
 			: data?.validtill === "1"
 			? "Revoked"
 			: "Expired";
+	console.log(data);
 
 	return (
 		<div className="info">
@@ -80,7 +81,9 @@ const Info = ({ resource, link }) => {
 							<span>
 								{data?.validtill === "0"
 									? "No Expiry"
-									: new Date(Number(data?.validtill)).toLocaleDateString()}
+									: new Date(
+											Number(data?.validtill) * 1000
+									  ).toLocaleDateString()}
 							</span>
 						</span>
 
