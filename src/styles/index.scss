@@ -24,6 +24,7 @@ body {
 		background: #fdfaf7 url("../assets/nav-ribbon.png") repeat-x;
 		background-size: cover;
 		image-rendering: -webkit-optimize-contrast;
+		transition: all 0.3s ease-in-out;
 
 		&::after {
 			margin: auto;
