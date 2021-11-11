@@ -146,15 +146,19 @@ const Reinstate = ({ setModalData }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		getValues,
 	} = useForm();
 	const { contract, accountAddress } = useContext(Web3Context);
 
 	const onSubmit = async (data) => {
 		if (accountAddress) {
 			setModalData({ mode: "loading" });
+			const expDate = getValues("validtill")
+				? Math.floor(new Date(getValues("validtill")).getTime() / 1000)
+				: 0;
 
 			await contract.methods
-				.reinstate(data.ipfsHash, data.validtill)
+				.reinstate(data.ipfsHash, expDate)
 				.send({ from: accountAddress })
 
 				.on("transactionHash", function (hash) {
