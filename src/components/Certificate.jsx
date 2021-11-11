@@ -13,7 +13,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 
 	const resource = fetchCertData(ipfsHash, certkey, contract);
 
-	const link = `http://192.168.1.6:3000/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
+	const link = `https://certify-v2.netlify.app/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
 
 	return (
 		<Suspense fallback={<PageLoader />}>
