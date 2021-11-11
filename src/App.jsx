@@ -49,7 +49,15 @@ const App = () => {
 								</Suspense>
 							}
 						/>
-						<Route exact path="actions" element={<Actions />} />
+						<Route
+							exact
+							path="actions"
+							element={
+								<Suspense fallback={<PageLoader />}>
+									<Actions />
+								</Suspense>
+							}
+						/>
 						<Route exact path="404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="/404" />} />
 					</Route>
