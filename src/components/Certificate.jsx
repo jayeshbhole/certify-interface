@@ -6,6 +6,8 @@ import ComponentLoader from "./ComponentLoader";
 import PageLoader from "./PageLoader";
 
 import Verified from "../assets/verified.svg";
+import Revoked from "../assets/revoked.svg";
+import Expired from "../assets/expired.svg";
 import "../styles/certificate.scss";
 
 const Certificate = ({ ipfsHash, certkey }) => {
@@ -51,8 +53,22 @@ const Fields = ({ resource }) => {
 		</div>
 	);
 };
+
+const statusData = {
+	Verified: { svg: Verified, msg: "Verified" },
+	Revoked: { svg: Revoked, msg: "Validity Revoked By Owner" },
+	Expired: { svg: Expired, msg: "Validity Expired" },
+};
+
 const Info = ({ resource, link }) => {
 	const data = resource.read();
+	const status =
+		data?.validtill === "0" || Date.now() < Number(data?.validtill) * 1000
+			? "Verified"
+			: data?.validtill === "1"
+			? "Revoked"
+			: "Expired";
+	console.log(status);
 	return (
 		<div className="info">
 			<div className="tx-info">
@@ -62,7 +78,9 @@ const Info = ({ resource, link }) => {
 						<span className="field">
 							<span className="label">Expires on : </span>
 							<span>
-								{new Date(Number(data?.validtill)).toLocaleDateString()}
+								{data?.validtill === "0"
+									? "No Expiry"
+									: new Date(Number(data?.validtill)).toLocaleDateString()}
 							</span>
 						</span>
 
@@ -78,11 +96,6 @@ const Info = ({ resource, link }) => {
 					</div>
 
 					<div className="col">
-						<span className="field">
-							<span className="label">Certificate ID : </span>
-							<span>{data?.certID}</span>
-						</span>
-
 						<span className="field">
 							<span className="label">Created On : </span>
 							<span>
@@ -102,9 +115,9 @@ const Info = ({ resource, link }) => {
 			<div>
 				<h4>Certificate Status</h4>
 				<div className="status">
-					<img src={Verified} alt="" />
+					<img src={statusData[status].svg} alt="" />
 
-					<div className="label">Verified</div>
+					<div className="label">{statusData[status].msg}</div>
 				</div>
 			</div>
 

@@ -26,10 +26,11 @@ const SingleCertificate = () => {
 		if (accountAddress) {
 			setModalData({ mode: "loading" });
 			const { ipfsHash, certkey } = await upload(data);
+
 			const expDate = getValues("ExpirationDate")
-				? new Date(getValues("ExpirationDate")).getTime()
+				? Math.floor(new Date(getValues("ExpirationDate")).getTime() / 1000)
 				: 0;
-			console.log(expDate);
+
 			await contract.methods
 				.generateCert(ipfsHash.toString(), expDate, ipfsHash.toString())
 				.send({ from: accountAddress })
