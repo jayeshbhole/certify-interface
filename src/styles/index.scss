@@ -66,10 +66,19 @@ body {
 		}
 	}
 }
+
+h2 {
+	font-family: "Noto Serif", serif;
+	font-size: 1.7rem;
+	font-weight: 500;
+	margin-bottom: 2rem;
+}
+
 main {
 	padding: 3rem 2.5rem;
 	min-height: calc(100vh - 14.5rem);
 }
+
 button,
 input[type="submit"] {
 	font-family: "Noto Serif", serif;
@@ -97,6 +106,7 @@ textarea {
 	padding: 0.5rem 1rem;
 	border: rgba(76, 76, 76, 0.55) 2px solid;
 	overflow: auto;
+	display: block;
 
 	&:focus-visible {
 		outline: none;

@@ -68,7 +68,7 @@ const Info = ({ resource, link }) => {
 			: data?.validtill === "1"
 			? "Revoked"
 			: "Expired";
-	console.log(status);
+
 	return (
 		<div className="info">
 			<div className="tx-info">
