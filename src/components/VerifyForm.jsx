@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import "../styles/verify.scss";
 
 const VerifyForm = () => {
+	// eslint-disable-next-line no-unused-vars
 	const [_, setSearchParams] = useSearchParams();
 
 	const {
