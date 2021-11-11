@@ -11,7 +11,7 @@ const Navbar = () => {
 					Certify.
 				</NavLink>
 				<div className="links">
-					<NavLink className="item" to="/about">
+					<NavLink className="item" to="/">
 						About
 					</NavLink>
 					<NavLink className="item" to="/verify">
@@ -20,11 +20,10 @@ const Navbar = () => {
 					<NavLink className="item" to="/create">
 						Create
 					</NavLink>
-					{accountAddress && (
-						<NavLink className="item" to="/register">
-							Your Certificates
-						</NavLink>
-					)}
+
+					<NavLink className="item" to="/actions">
+						Actions
+					</NavLink>
 				</div>
 				<span className="item" id="wallet" onClick={loadWeb3Modal}>
 					{accountAddress

@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import PageLoader from "./components/PageLoader";
+import Actions from "./components/Actions";
 
 // Styles
 import "./styles/App.scss";
@@ -48,7 +49,7 @@ const App = () => {
 								</Suspense>
 							}
 						/>
-						<Route exact path="loading" element={<PageLoader />} />
+						<Route exact path="actions" element={<Actions />} />
 						<Route exact path="404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="/404" />} />
 					</Route>
