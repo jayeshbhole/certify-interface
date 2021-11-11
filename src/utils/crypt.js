@@ -20,7 +20,7 @@ function getRandomKey() {
 
 function decrypt(data, key) {
 	const a = AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
-	console.log(a);
+	// console.log(a);
 	return a;
 }
 
