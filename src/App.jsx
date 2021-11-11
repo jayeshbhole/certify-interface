@@ -5,15 +5,15 @@ import { lazy, Suspense } from "react";
 
 // Components
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import PageLoader from "./components/PageLoader";
 
 // Styles
 import "./styles/App.scss";
 
-const View = lazy(() => import("./components/View"));
+const Verify = lazy(() => import("./components/Verify"));
 const Create = lazy(() => import("./components/Create"));
+const Home = lazy(() => import("./components/Home"));
 
 const App = () => {
 	return (
@@ -35,11 +35,19 @@ const App = () => {
 							path="verify"
 							element={
 								<Suspense fallback={<PageLoader />}>
-									<View />
+									<Verify />
 								</Suspense>
 							}
 						/>
-						<Route exact path="" element={<Home />} />
+						<Route
+							exact
+							path=""
+							element={
+								<Suspense fallback={<PageLoader />}>
+									<Home />
+								</Suspense>
+							}
+						/>
 						<Route exact path="loading" element={<PageLoader />} />
 						<Route exact path="404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="/404" />} />
