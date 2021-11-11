@@ -3,6 +3,7 @@ import { lazy, Suspense, useCallback, useEffect, useRef } from "react";
 import Loader from "../assets/loading.svg";
 import { saveAs } from "file-saver";
 import PageLoader from "./PageLoader";
+import "../styles/certificate-modal.scss";
 
 const Certificate = lazy(() => import("./Certificate"));
 
