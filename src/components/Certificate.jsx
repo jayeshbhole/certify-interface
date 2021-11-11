@@ -1,11 +1,12 @@
 import { Suspense, useContext } from "react";
 import QRCode from "react-qr-code";
-import Verified from "../assets/verified.svg";
 import { Web3Context } from "../context/Web3Context";
-import "../styles/view.scss";
 import fetchCertData from "../utils/fetchCertData";
 import ComponentLoader from "./ComponentLoader";
 import PageLoader from "./PageLoader";
+
+import Verified from "../assets/verified.svg";
+import "../styles/certificate.scss";
 
 const Certificate = ({ ipfsHash, certkey }) => {
 	const { contract } = useContext(Web3Context);

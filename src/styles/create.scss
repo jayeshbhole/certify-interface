@@ -31,21 +31,6 @@
 				input,
 				textarea {
 					width: 90% !important;
-					font-family: "Noto Serif";
-					background: #fcf7f3;
-					padding: 0.5rem 1rem;
-					border: rgba(76, 76, 76, 0.55) 2px solid;
-					overflow: auto;
-
-					&:focus-visible {
-						outline: none;
-						border: #ffacac 2px solid;
-						border-radius: 0;
-					}
-				}
-				.error {
-					font-size: 0.75rem;
-					color: #ff6363;
 				}
 			}
 		}

@@ -20,9 +20,11 @@ const Navbar = () => {
 					<NavLink className="item" to="/create">
 						Create
 					</NavLink>
-					<NavLink className="item" to="/register">
-						Register
-					</NavLink>
+					{accountAddress && (
+						<NavLink className="item" to="/register">
+							Your Certificates
+						</NavLink>
+					)}
 				</div>
 				<span className="item" id="wallet" onClick={loadWeb3Modal}>
 					{accountAddress
