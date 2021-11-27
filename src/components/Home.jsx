@@ -22,8 +22,6 @@ const Home = () => {
 					</Link>
 				</div>
 			</div>
-
-			{/* <img src={HomeSVG} alt="" /> */}
 		</div>
 	);
 };
