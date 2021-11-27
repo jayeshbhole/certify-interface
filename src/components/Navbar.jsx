@@ -25,7 +25,11 @@ const Navbar = () => {
 						Actions
 					</NavLink>
 				</div>
-				<span className="item" id="wallet" onClick={loadWeb3Modal}>
+				<span
+					className="item"
+					id="wallet"
+					role="button"
+					onClick={loadWeb3Modal}>
 					{accountAddress
 						? `Connected ${accountAddress.slice(0, 5)}`
 						: "Connect Wallet"}

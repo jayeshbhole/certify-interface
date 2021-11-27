@@ -41,3 +41,19 @@
 		}
 	}
 }
+
+@media screen and (max-width: 768px) {
+	.create {
+		.txt {
+			width: 100%;
+		}
+		.single {
+			form {
+				width: 100%;
+				.item input {
+					width: 95% !important;
+				}
+			}
+		}
+	}
+}

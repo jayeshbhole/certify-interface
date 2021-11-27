@@ -42,3 +42,20 @@
 		}
 	}
 }
+
+@media screen and (max-width: 768px) {
+	.actions {
+		.action {
+			.inner {
+				.txt {
+					width: 100%;
+					max-width: 100%;
+				}
+				flex-direction: column;
+				img {
+					max-height: 30vh;
+				}
+			}
+		}
+	}
+}
