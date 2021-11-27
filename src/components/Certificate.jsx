@@ -15,7 +15,7 @@ const Certificate = ({ ipfsHash, certkey }) => {
 
 	const resource = fetchCertData(ipfsHash, certkey, contract);
 
-	const link = `https://certify-v2.netlify.app/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
+	const link = `https://certify-v1.netlify.app/verify/?ipfsHash=${ipfsHash}&certkey=${certkey}`;
 
 	return (
 		<Suspense fallback={<PageLoader />}>

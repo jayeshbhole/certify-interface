@@ -6,9 +6,9 @@ import {
 	useMemo,
 } from "react";
 import Web3Modal from "web3modal";
-import Portis from "@portis/web3";
 import Web3 from "web3";
 import abi from "../utils/contractABI";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const Web3Context = createContext({
 	balance: null,
@@ -20,23 +20,23 @@ const Web3Context = createContext({
 });
 
 const providerOptions = {
-	portis: {
-		package: Portis, // required
+	walletconnect: {
+		package: WalletConnectProvider,
 		options: {
-			id: "1c106e72-6610-4945-856e-1f0c3d5bc67a", // required
-			network: "ropsten",
+			rpc: {
+				44787: "https://alfajores-forno.celo-testnet.org/",
+			},
 		},
 	},
 };
 
 const Web3ContextProvider = (props) => {
-	const [network, setNetwork] = useState("mainnet");
+	const [network, setNetwork] = useState("0xaef3");
 	const [provider, setProvider] = useState();
 	const [signedInAddress, setSignedInAddress] = useState("");
 
 	const web3Modal = useMemo(() => {
 		return new Web3Modal({
-			network: network,
 			cacheProvider: false,
 			providerOptions: providerOptions,
 		});
@@ -44,12 +44,11 @@ const Web3ContextProvider = (props) => {
 
 	const { web3, contract } = useMemo(() => {
 		const web3 = new Web3(
-			provider ||
-				"https://eth-ropsten.alchemyapi.io/v2/hmcLykc82lV3Hv9KwZoMjYwETfo7DwNM"
+			provider || "https://alfajores-forno.celo-testnet.org/"
 		);
 		const contract = new web3.eth.Contract(
 			abi.abi,
-			"0x2b76a4fa993f30004b4e92cab6256f98d0612ae5"
+			"0x2D031B84bd6cF242619Bd52542dDbCcb8556b90e"
 		);
 		return { web3, contract };
 	}, [provider]);
@@ -57,8 +56,14 @@ const Web3ContextProvider = (props) => {
 	// Modal Controls - Connect and Disconnect Wallets
 	const loadWeb3Modal = useCallback(async () => {
 		const newProvider = await web3Modal.connect();
-		setProvider(newProvider);
-		setSignedInAddress(newProvider.selectedAddress);
+		console.log("Connected", newProvider);
+		if (!!newProvider.wc) {
+			setProvider(newProvider);
+			setSignedInAddress(newProvider.accounts[0]);
+		} else {
+			setProvider(newProvider);
+			setSignedInAddress(newProvider.selectedAddress);
+		}
 	}, [web3Modal]);
 	const logoutOfWeb3Modal = useCallback(async () => {
 		setSignedInAddress("");
