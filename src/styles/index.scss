@@ -81,7 +81,8 @@ main {
 }
 
 button,
-input[type="submit"] {
+input[type="submit"],
+a[role="button"] {
 	font-family: "Noto Serif", serif;
 	font-size: 1.1rem;
 	margin: auto;
