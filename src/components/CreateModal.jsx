@@ -37,7 +37,7 @@ const Modal = ({ modalData: { mode, data, receipt }, setModalData }) => {
 			transactionHash: receipt?.transactionHash,
 			ipfsHash: data?.ipfsHash,
 			certkey: data?.certkey,
-			shareableLink: `https://certify-v2.netlify.app/verify/?ipfsHash=${data?.ipfsHash}&certkey=${data?.certkey}`,
+			shareableLink: `https://certify-v1.netlify.app/verify/?ipfsHash=${data?.ipfsHash}&certkey=${data?.certkey}`,
 		};
 		const blob = new Blob([JSON.stringify(obj, null, "\t")], {
 			type: "application/json",
