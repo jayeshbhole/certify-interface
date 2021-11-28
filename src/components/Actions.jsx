@@ -212,7 +212,7 @@ const Reinstate = ({ setModalData }) => {
 				</span>
 				<input {...register("certkey", condition)} type="text" name="certkey" />
 			</div>
-			<input type="submit" value="Revoke Certificate" />
+			<input type="submit" value="Reinstate Certificate" />
 		</form>
 	);
 };
