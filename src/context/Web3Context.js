@@ -37,7 +37,6 @@ const Web3ContextProvider = (props) => {
 
 	const web3Modal = useMemo(() => {
 		return new Web3Modal({
-			cacheProvider: false,
 			providerOptions: providerOptions,
 		});
 	}, [network]);
